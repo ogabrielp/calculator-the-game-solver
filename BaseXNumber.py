@@ -81,3 +81,15 @@ class BaseXNumber:
         # Transform digits back to strings so they can be joined
         value_array = [str(digit) for digit in value_array]
         self.value = ''.join(value_array)
+
+    def get_value(self):
+        return self.value
+
+    def get_base(self):
+        return self.base
+
+    def get_overflow(self):
+        return self.overflow
+
+    def get_minimum_value(self):
+        return self.MINIMUM_VALUE
