@@ -20,7 +20,7 @@ class BaseXNumber:
         '000'. Otherwise, it will be '1000'.
         """
 
-        # Starting type verifications
+        # Type verifications
         if not isinstance(value, str):
             raise TypeError('\'value\' must be a string.')
 
@@ -30,7 +30,7 @@ class BaseXNumber:
         if not isinstance(overflow, bool):
             raise TypeError('\'overflow\' must be a boolean.')
 
-        # Starting value verifications
+        # Value verifications
         if len(value) == 0:
             raise ValueError('\'value\' can\'t be an empty string.')
 
