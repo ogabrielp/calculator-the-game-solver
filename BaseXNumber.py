@@ -47,6 +47,7 @@ class BaseXNumber:
         self.value = value
         self.base = base
         self.overflow = overflow
+        self.MINIMUM_VALUE = '0'*len(value)
 
     def increaseByOne(self):
         """
