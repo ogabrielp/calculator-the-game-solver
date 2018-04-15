@@ -47,7 +47,9 @@ class BaseXNumber:
         self.value = value
         self.base = base
         self.overflow = overflow
-        self.MINIMUM_VALUE = '0'*len(value)
+
+        if overflow:
+            self.MINIMUM_VALUE = '0'*len(value)
 
     def increaseByOne(self):
         """
@@ -92,4 +94,7 @@ class BaseXNumber:
         return self.overflow
 
     def get_minimum_value(self):
-        return self.MINIMUM_VALUE
+        if self.overflow:
+            return self.MINIMUM_VALUE
+        else:
+            raise AttributeError('instances with \'overflow\' set to \'False\' don\'t have the MINIMUM_VALUE property.')
