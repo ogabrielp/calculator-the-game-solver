@@ -38,7 +38,7 @@ class Level:
         if moves < 1:
             raise ValueError('\'moves\' must be a non-zero, positive integer.')
 
-        self._validate_buttons(buttons)
+        self.validate_buttons(buttons)
 
         self.index = index
         self.moves = moves
@@ -61,5 +61,14 @@ class Level:
     def get_buttons(self):
         return self.buttons
 
-    def _validate_buttons(self, buttons):
-        return
+
+    def validate_buttons(self, buttons):
+        buttons = getattr(self, 'buttons', None)
+        if buttons:
+            raise PermissionException('this function shouldn\'t be called '
+            + 'outside of the Level class.')
+
+        print 'Finished successfully.'
+
+class PermissionException(Exception):
+    pass
