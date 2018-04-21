@@ -38,6 +38,8 @@ class Level:
         if moves < 1:
             raise ValueError('\'moves\' must be a non-zero, positive integer.')
 
+        self._validate_buttons(buttons)
+
         self.index = index
         self.moves = moves
         self.goal = goal
