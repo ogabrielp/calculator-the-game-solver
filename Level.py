@@ -61,6 +61,14 @@ class Level:
     def get_buttons(self):
         return self.buttons
 
+    def get_button_at(self, index):
+        if index >= len(self.buttons):
+            raise ValueError('\'index\' is greater than the last ' +
+            'position of the array ({0} > {1}).'.format(index, len(self.buttons)-1))
+        elif index < 0:
+            raise ValueError('\'index\' can\'t be lower than 0.')
+        else:
+            return self.buttons[index]
 
     def validate_buttons(self, buttons):
         buttons = getattr(self, 'buttons', None)
