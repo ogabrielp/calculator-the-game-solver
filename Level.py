@@ -76,7 +76,5 @@ class Level:
             raise PermissionException('this function shouldn\'t be called '
             + 'outside of the Level class.')
 
-        print 'Finished successfully.'
-
 class PermissionException(Exception):
     pass
