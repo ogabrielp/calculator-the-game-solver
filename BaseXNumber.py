@@ -48,8 +48,8 @@ class BaseXNumber:
         self.base = base
         self.overflow = overflow
 
-        if overflow:
-            self.MINIMUM_VALUE = '0'*len(value)
+        if not overflow:
+            self.MAXIMUM_VALUE = '{0}'.format(self.base-1)*len(value)
 
     def increaseByOne(self):
         """
@@ -72,13 +72,15 @@ class BaseXNumber:
                 else:
                     # If the first position of the array is greater than the base,
                     # the limit for this base and string length has been reached.
-
-                    # Reset value_array
-                    value_array = [0] * len(self.value)
-
-                    if not self.overflow:
-                        # Prepend '1' to value if overflow is disabled
+                    if self.overflow:
+                        # If overflow is enabled, reset the array and prepend
+                        # with 1.
+                        value_array = [0] * len(self.value)
                         value_array = [1] + value_array
+                    else:
+                        # If overflow is disabled, set all the positions of
+                        # the array to the maximum possible value.
+                        value_array = [self.base-1] * len(self.value)
 
         # Transform digits back to strings so they can be joined
         value_array = [str(digit) for digit in value_array]
@@ -93,8 +95,8 @@ class BaseXNumber:
     def get_overflow(self):
         return self.overflow
 
-    def get_minimum_value(self):
+    def get_maximum_value(self):
         if self.overflow:
-            return self.MINIMUM_VALUE
+            return self.MAXIMUM_VALUE
         else:
-            raise AttributeError('instances with \'overflow\' set to \'False\' don\'t have the MINIMUM_VALUE property.')
+            raise AttributeError('instances with \'overflow\' set to \'False\' don\'t have the MAXIMUM_VALUE property.')
