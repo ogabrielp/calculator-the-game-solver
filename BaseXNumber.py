@@ -51,40 +51,72 @@ class BaseXNumber:
         if not overflow:
             self.MAXIMUM_VALUE = '{0}'.format(self.base-1)*len(value)
 
-    def increaseByOne(self):
-        """
-        Adds one to the current value of the number.
-        #TODO: generalize this function to increase any amount.
-        """
-        # Transform string in array of integers
-        value_array = [int(digit) for digit in self.value]
-        # Add one to last position of the number
-        value_array[len(self.value)-1] += 1
+    def __add__(self, baseXnumber):
+        # Attribute verifications
+        if self.base != baseXnumber.base:
+            raise AttributeError('the bases of the two numbers being added must ' +
+            'be the same.')
 
-        # Iterate through the value resetting values greater than the base
-        for i in range(len(self.value)-1, -1, -1):
-            if value_array[i] >= self.base:
-                # If it's not first position of array
-                if i > 0:
-                    # Reset current position and increase the previous one by 1
-                    value_array[i] = 0
-                    value_array[i-1] += 1
-                else:
-                    # If the first position of the array is greater than the base,
-                    # the limit for this base and string length has been reached.
-                    if self.overflow:
-                        # If overflow is enabled, reset the array and prepend
-                        # with 1.
-                        value_array = [0] * len(self.value)
-                        value_array = [1] + value_array
-                    else:
-                        # If overflow is disabled, set all the positions of
-                        # the array to the maximum possible value.
-                        value_array = [self.base-1] * len(self.value)
+        if self.overflow != baseXnumber.overflow:
+            raise AttributeError('the \'overflow\' attribute must be the same ' +
+            'in both instances.')
+
+        # Transform value of instance in array of integers
+        initial_value_array = [int(digit) for digit in self.value]
+        # Transform value being added to the instance in array of integers
+        added_value_array = [int(digit) for digit in baseXnumber.value]
+
+        # If the value being added is smaller than the value of the instance
+        if len(added_value_array) < len(initial_value_array):
+            # Pad the value being added with 0s.
+            padding = [0] * (len(initial_value_array) - len(added_value_array))
+            added_value_array = padding + added_value_array
+
+        # If the initial value is smaller than the value being added
+        if len(initial_value_array) < len(added_value_array) and self.overflow:
+            # Pad the initial value with zeros.
+            # This only happens if overflow is 'True', because if it's false,
+            # the length of the original number can't change.
+            padding = [0] * (len(added_value_array) - len(initial_value_array))
+            initial_value_array = padding + initial_value_array
+
+        # Define the carry for when the result of the sum is greater than the base
+        carry = 0
+        # Create the results array by adding every position of the arrays above
+        result_value_array = [0] * len(initial_value_array)
+
+        # Iterating backwards through the array
+        for i in range(len(initial_value_array)-1, -1, -1):
+            # Sum both digits at current position and add the carry
+            result_value_array[i] = initial_value_array[i] + added_value_array[i] + carry
+            # Resets the carry because it's been used already
+            carry = 0
+
+            # The snippet below is how addition works, but we are not familiar
+            # with this representation, so an example may explain it better.
+
+            # 9 + 8 = 17, and 17 >= 10
+            if result_value_array[i] >= self.base:
+                # Carry is 1 (17 / 10 = 1, remainder 7)
+                carry = result_value_array[i] / self.base
+                # Final value for that position is 7 (the remainder)
+                result_value_array[i] %= self.base
+
+        if carry > 0:
+            if self.overflow:
+                # Prepend the array with the carry (in the example above, 1)
+                result_value_array = [carry] + result_value_array
+            else:
+                # Sets the result to the maximum value of the instance
+                result_value_array = [int(digit) for digit in self.MAXIMUM_VALUE]
 
         # Transform digits back to strings so they can be joined
-        value_array = [str(digit) for digit in value_array]
-        self.value = ''.join(value_array)
+        result_value_array = [str(digit) for digit in result_value_array]
+        result_str = ''.join(result_value_array)
+
+        # Creates a new instance with the final value and returns it
+        result = BaseXNumber(value=result_str, base=self.base, overflow=self.overflow)
+        return result
 
     def get_value(self):
         return self.value
