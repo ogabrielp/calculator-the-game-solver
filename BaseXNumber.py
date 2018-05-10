@@ -39,7 +39,7 @@ class BaseXNumber:
 
         for digit in value:
             if int(digit) >= base:
-                raise ValueError('Digit \'{0}\' in \'value\' is outside of base {1} range.'.format(digit, base))
+                raise ValueError('digit \'{0}\' in \'value\' is outside of base {1} range.'.format(digit, base))
 
         if not 2 <= base <= 10:
             raise ValueError('\'base\' must be >= 2 and <= 10.')
