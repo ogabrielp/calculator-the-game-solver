@@ -1,5 +1,3 @@
-from exceptions import ValueError, TypeError
-
 class BaseXNumber:
     """
     Defines a number in base X (with x between 2 and 10).
