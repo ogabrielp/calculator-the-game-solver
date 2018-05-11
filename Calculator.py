@@ -41,3 +41,7 @@ class Calculator:
 
     def get_current_value(self):
         return self.current_value
+
+    def get_level(self):
+        return self.level
+
