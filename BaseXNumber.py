@@ -47,8 +47,8 @@ class BaseXNumber:
         self.overflow = overflow
 
         if not overflow:
-            self.MINIMUM_VALUE = '{0}'.format(self.base-1) * len(value)
-            self.MAXIMUM_VALUE = '0' * len(value)
+            self.MINIMUM_VALUE = '0' * len(value)
+            self.MAXIMUM_VALUE = '{0}'.format(self.base-1) * len(value)
 
     def __add__(self, baseXnumber):
         # Type verification to allow adding a string or number to a BaseXNumber
