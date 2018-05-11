@@ -51,6 +51,21 @@ class BaseXNumber:
             self.MAXIMUM_VALUE = '0' * len(value)
 
     def __add__(self, baseXnumber):
+        # Type verification to allow adding a string or number to a BaseXNumber
+        # This is only allowed if the left operand is a BaseXNumber
+        if isinstance(baseXnumber, str) and isinstance(self, BaseXNumber):
+            baseXnumber = BaseXNumber(
+                value=baseXnumber,
+                base=self.base,
+                overflow=self.overflow
+            )
+        elif isinstance(baseXnumber, int) and isinstance(self, BaseXNumber):
+            baseXnumber = BaseXNumber(
+                value=str(baseXnumber),
+                base=self.base,
+                overflow=self.overflow
+            )
+
         # Attribute verifications
         if self.base != baseXnumber.base:
             raise AttributeError('the bases of the two numbers being added must ' +
