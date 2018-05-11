@@ -47,7 +47,8 @@ class BaseXNumber:
         self.overflow = overflow
 
         if not overflow:
-            self.MAXIMUM_VALUE = '{0}'.format(self.base-1)*len(value)
+            self.MINIMUM_VALUE = '{0}'.format(self.base-1) * len(value)
+            self.MAXIMUM_VALUE = '0' * len(value)
 
     def __add__(self, baseXnumber):
         # Attribute verifications
@@ -124,6 +125,12 @@ class BaseXNumber:
 
     def get_overflow(self):
         return self.overflow
+
+    def get_minimum_value(self):
+        if self.overflow:
+            return self.MINIMUM_VALUE
+        else:
+            raise AttributeError('instances with \'overflow\' set to \'False\' don\'t have the MINIMUM_VALUE property.')
 
     def get_maximum_value(self):
         if self.overflow:
