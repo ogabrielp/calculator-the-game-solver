@@ -45,3 +45,8 @@ class Calculator:
     def get_level(self):
         return self.level
 
+    def clear(self):
+        """
+        An alias to the __init__ function to improve code legibility.
+        """
+        self.__init__(self.level)
