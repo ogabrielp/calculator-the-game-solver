@@ -19,6 +19,7 @@ class Calculator:
 
         self.level = level
         self.current_value = level.start if level else None
+        self.previous_value = level.start if level else None
 
     def perform_operation(self, operation):
         """
@@ -38,6 +39,9 @@ class Calculator:
         level -- instance of Level describing the current level.
         """
         self.__init__(level)
+
+    def get_previous_value(self):
+        return self.previous_value
 
     def get_current_value(self):
         return self.current_value
