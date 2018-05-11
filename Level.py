@@ -96,7 +96,15 @@ class Level:
             # Validate the addition button
             if button.startswith('+'):
                 # Discard the operator
-                button = button.replace('+', '')
+                button = button[1:]
+                # Verify if the remainder is a number
+                if not can_parse(button):
+                    return False
+
+            # Validate the multiplication button
+            elif button.startswith('x'):
+                # Discard the operator
+                button = button[1:]
                 # Verify if the remainder is a number
                 if not can_parse(button):
                     return False
