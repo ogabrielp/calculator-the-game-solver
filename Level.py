@@ -38,7 +38,8 @@ class Level:
         if moves < 1:
             raise ValueError('\'moves\' must be a non-zero, positive integer.')
 
-        self.validate_buttons(buttons)
+        if not self.validate_buttons(buttons):
+            raise ValueError('\'buttons\' has an invalid button.')
 
         self.index = index
         self.moves = moves
@@ -71,10 +72,40 @@ class Level:
             return self.buttons[index]
 
     def validate_buttons(self, buttons):
-        buttons = getattr(self, 'buttons', None)
-        if buttons:
+        # This function tries to convert a received value to integer.
+        # Returns true if it can, false otherwise.
+        def can_parse(value):
+            try:
+                value = int(value)
+                return True
+            except:
+                return False
+
+        # Verify if the instance already has the 'buttons' property.
+        # If this is the case, the function is being called from outside
+        # this class.
+        instance_buttons = getattr(self, 'buttons', None)
+        if instance_buttons:
             raise PermissionException('this function shouldn\'t be called '
             + 'outside of the Level class.')
+
+        # Convert string with list of buttons to array of buttons
+        buttons = buttons.split(', ')
+
+        for button in buttons:
+            # Validate the addition button
+            if button.startswith('+'):
+                # Discard the operator
+                button = button.replace('+', '')
+                # Verify if the remainder is a number
+                if not can_parse(button):
+                    return False
+            else:
+                # If it's not listed above, it's not a valid button
+                return False
+
+        # Returns true only if all buttons were valid
+        return True
 
 class PermissionException(Exception):
     pass
