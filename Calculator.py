@@ -30,6 +30,16 @@ class Calculator:
         operation -- string representing the operation.
         """
 
+        # Store current value as the previous value since the current value
+        # is going to be changed in the following lines.
+        self.previous_value = self.current_value
+
+        # Addition
+        if operation.startswith('+'):
+            # Strip the operator from the operation string
+            operand = operation.replace('+', '')
+            self.current_value += int(operand)
+
         return
 
     def set_level(self, level):
