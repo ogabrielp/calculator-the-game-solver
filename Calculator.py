@@ -37,9 +37,14 @@ class Calculator:
         # Addition
         if operation.startswith('+'):
             # Strip the operator from the operation string
-            operand = operation.replace('+', '')
+            operand = operation[1:]
             self.current_value += int(operand)
 
+        # Multiplication
+        elif operation.startswith('x'):
+            # Strip the operator from the operation string
+            operand = operation[1:]
+            self.current_value *= int(operand)
         return
 
     def set_level(self, level):
