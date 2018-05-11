@@ -5,6 +5,7 @@ class Calculator:
     Defines the main class to be used by the solver.
     Represents the actual calculator inside Calculator: The Game.
     """
+
     def __init__(self, level=None):
         """
         Calculator constructor.
