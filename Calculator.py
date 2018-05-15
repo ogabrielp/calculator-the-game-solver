@@ -1,4 +1,5 @@
 from Level import Level
+from Operation import Operation
 
 class Calculator:
     """
@@ -33,18 +34,8 @@ class Calculator:
         # Store current value as the previous value since the current value
         # is going to be changed in the following lines.
         self.previous_value = self.current_value
-
-        # Addition
-        if operation.startswith('+'):
-            # Strip the operator from the operation string
-            operand = operation[1:]
-            self.current_value += int(operand)
-
-        # Multiplication
-        elif operation.startswith('x'):
-            # Strip the operator from the operation string
-            operand = operation[1:]
-            self.current_value *= int(operand)
+        operation_function = Operation.get_operation(operation)
+        self.current_value = operation_function(self.current_value)
         return
 
     def set_level(self, level):
