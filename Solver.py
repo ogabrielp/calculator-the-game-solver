@@ -78,7 +78,8 @@ class Solver:
             button = level.get_button_at(digit)
             # Perform the operation defined by the button
             self.calculator.perform_operation(button)
-
+            # Create an alias for 'current_value' to reduce the length
+            # of the if line below.
             current_value = self.calculator.get_current_value()
             # If the number has a non-zero decimal part, it doesn't work,
             # as there are neo levels where the goal is a decimal number.
