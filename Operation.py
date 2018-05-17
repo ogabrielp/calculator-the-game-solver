@@ -62,4 +62,9 @@ class Operation:
 
             return lambda value: substr(value)
 
+        # Append number to the end
+        elif is_numeric(operation):
+            # Add the number to the end of the value and convert it to int
+            return lambda value: int(str(value) + operation)
+
         return None
