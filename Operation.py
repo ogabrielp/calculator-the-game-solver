@@ -41,6 +41,25 @@ class Operation:
                     '/': lambda value: float(value) / operand
                 }
                 return operations[operator]
+            # If the operand is not numeric, return nothing
             return None
+
+        # Delete the last character
+        elif operation == '<<':
+            # Define the function separately as it would be too ilegible if
+            # declared directly within the lambda call.
+            def substr(value):
+                # Convert the value to string to be able to use len()
+                str_value = str(value)
+                # If there's more than one character
+                if len(str_value) > 1:
+                    # Remove the last one
+                    return int(str(value)[:-1])
+                else:
+                    # Otherwise just return zero (this is the actual behavior
+                    # of the Calculator in the game).
+                    return 0
+
+            return lambda value: substr(value)
 
         return None
