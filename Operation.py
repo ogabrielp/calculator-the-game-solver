@@ -46,7 +46,7 @@ class Operation:
 
         # Delete the last character
         elif operation == '<<':
-            # Define the function separately as it would be too ilegible if
+            # Define the function separately as it would be too illegible if
             # declared directly within the lambda call.
             def substr(value):
                 # Convert the value to string to be able to use len()
