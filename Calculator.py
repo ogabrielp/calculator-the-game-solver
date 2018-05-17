@@ -34,6 +34,7 @@ class Calculator:
         # Store current value as the previous value since the current value
         # is going to be changed in the following lines.
         self.previous_value = self.current_value
+        self.current_value = int(self.current_value)
         operation_function = Operation.get_operation(operation)
         self.current_value = operation_function(self.current_value)
         return
