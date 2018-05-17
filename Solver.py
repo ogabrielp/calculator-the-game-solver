@@ -65,6 +65,8 @@ class Solver:
         """
         Tries a particular sequence of operations.
         """
+        # Reset the calculator to the original state
+        self.calculator.clear()
         # Convert the sequence to array of integers
         sequence = [int(digit) for digit in sequence]
         # Get the level from the instance's calculator
@@ -87,8 +89,6 @@ class Solver:
         if self.calculator.get_current_value() == level.get_goal():
             return True
         else:
-            # Reset the calculator to the original state
-            self.calculator.clear()
             return False
 
     def counter_to_buttons(self, sequence):
