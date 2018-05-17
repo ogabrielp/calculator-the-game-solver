@@ -38,7 +38,7 @@ class Operation:
                     '+': lambda value: value + operand,
                     '-': lambda value: value - operand,
                     'x': lambda value: value * operand,
-                    '/': lambda value: value / operand
+                    '/': lambda value: float(value) / operand
                 }
                 return operations[operator]
             return None
