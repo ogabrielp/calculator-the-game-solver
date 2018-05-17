@@ -77,8 +77,14 @@ class Solver:
             # Perform the operation defined by the button
             self.calculator.perform_operation(button)
 
+            current_value = self.calculator.get_current_value()
+            # If the number has a non-zero decimal part, it doesn't work,
+            # as there are neo levels where the goal is a decimal number.
+            if int(current_value) < current_value:
+                return False
+
         # If the sequence successfully arrived at the desired result
-        if self.calculator.current_value == level.get_goal():
+        if self.calculator.get_current_value() == level.get_goal():
             return True
         else:
             # Reset the calculator to the original state
