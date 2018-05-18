@@ -33,6 +33,9 @@ class Operation:
             if is_numeric(operand):
                 return lambda value: int(math.pow(float(value), float(operand)))
 
+        elif operation == '+/-':
+            return lambda value: int(value*-1)
+
         # Basic operations
         elif operation.startswith(('+', '-', 'x', '/')):
             # Strip the operator from the operation string
