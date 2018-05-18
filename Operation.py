@@ -1,3 +1,5 @@
+import math
+
 class Operation:
     """
     The class that centralizes operation info.
@@ -25,8 +27,14 @@ class Operation:
             except:
                 return False
 
+        # Square
+        if operation.startswith('x^'):
+            operand = operation[2:]
+            if is_numeric(operand):
+                return lambda value: int(math.pow(float(value), float(operand)))
+
         # Basic operations
-        if operation.startswith(('+', '-', 'x', '/')):
+        elif operation.startswith(('+', '-', 'x', '/')):
             # Strip the operator from the operation string
             operator = operation[0]
             operand = operation[1:]
@@ -41,8 +49,6 @@ class Operation:
                     '/': lambda value: float(value) / operand
                 }
                 return operations[operator]
-            # If the operand is not numeric, return nothing
-            return None
 
         # Delete the last character
         elif operation == '<<':
@@ -74,5 +80,5 @@ class Operation:
                 to_replace = operands[0]
                 replacer = operands[1]
                 return lambda value: int(str(value).replace(to_replace, replacer))
-        
+
         return None
