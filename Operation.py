@@ -67,4 +67,12 @@ class Operation:
             # Add the number to the end of the value and convert it to int
             return lambda value: int(str(value) + operation)
 
+        # Replace
+        elif '=>' in operation:
+            operands = operation.split('=>')
+            if is_numeric(operands[0]) and is_numeric(operands[1]):
+                to_replace = operands[0]
+                replacer = operands[1]
+                return lambda value: int(str(value).replace(to_replace, replacer))
+        
         return None
