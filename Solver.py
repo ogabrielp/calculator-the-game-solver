@@ -2,6 +2,8 @@ from BaseXNumber import BaseXNumber
 from Level import Level
 from Calculator import Calculator
 
+import math
+
 #TODO discard sequences where one of the actions produces no effect
 
 class Solver:
@@ -82,8 +84,8 @@ class Solver:
             # of the if line below.
             current_value = self.calculator.get_current_value()
             # If the number has a non-zero decimal part, it doesn't work,
-            # as there are neo levels where the goal is a decimal number.
-            if int(current_value) < current_value:
+            # as there are no levels where the goal is a decimal number.
+            if math.fabs(int(current_value)) < math.fabs(current_value):
                 return False
 
         # If the sequence successfully arrived at the desired result
