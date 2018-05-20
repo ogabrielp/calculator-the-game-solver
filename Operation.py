@@ -29,10 +29,12 @@ class Operation:
 
         # Square
         if operation.startswith('x^'):
+            # Remove the 'x^' from the string
             operand = operation[2:]
             if is_numeric(operand):
                 return lambda value: int(math.pow(float(value), float(operand)))
 
+        # Flip the sign
         elif operation == '+/-':
             return lambda value: int(value*-1)
 
@@ -78,9 +80,16 @@ class Operation:
 
         # Replace
         elif '=>' in operation:
+            # Fetch operands at both sides of the arrow
             operands = operation.split('=>')
+            # If there's more than one arrow
+            if len(operands) > 2:
+                return None
+            # If both operands are numeric
             if is_numeric(operands[0]) and is_numeric(operands[1]):
+                # Replace the one on the left
                 to_replace = operands[0]
+                # With the one on the right
                 replacer = operands[1]
                 return lambda value: int(str(value).replace(to_replace, replacer))
 
