@@ -84,4 +84,21 @@ class Operation:
                 replacer = operands[1]
                 return lambda value: int(str(value).replace(to_replace, replacer))
 
+        elif operation == 'Reverse':
+            def reverse(value):
+                # If the value is negative, there's a minus sign that would
+                # be at the end of the string after it was reversed.
+                if value < 0:
+                    # Remove the minus sign
+                    value *= -1
+                    # Convert the value to string and revert it
+                    reversed_value = str(value)[::-1]
+                    # Return as int preppending the minus sign
+                    return int('-' + reversed_value)
+
+                # Otherwise just flip the string and convert it to int
+                return int(str(value)[::-1])
+
+            return reverse
+
         return None
