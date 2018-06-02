@@ -93,6 +93,7 @@ class Operation:
                 replacer = operands[1]
                 return lambda value: int(str(value).replace(to_replace, replacer))
 
+        # Reverse
         elif operation == 'Reverse':
             def reverse(value):
                 # If the value is negative, there's a minus sign that would
@@ -110,4 +111,24 @@ class Operation:
 
             return reverse
 
+        # Sum
+        elif operation == 'SUM':
+            def sum(value):
+                # Start the sum at 0
+                sum = 0
+                if value < 0:
+                    # If the value is negative, there's a minus sign that would
+                    # throw an exception when parsed below, so it's necessary to
+                    # extract the sign.
+                    sign = '-'
+                    value *= -1
+                else:
+                    sign = ''
+                # For every digit of the number
+                for char in str(value):
+                    # Increment the sum with its value
+                    sum += int(char)
+                return int(sign + str(sum))
+
+            return sum
         return None
