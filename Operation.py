@@ -133,9 +133,13 @@ class Operation:
         # Shift left
         elif operation == '<Shift':
             def shift_left(value):
+                # Store string conversion to prevent function calls further down
                 str_value = str(value)
+                # Create a substring of str_value without the first character
                 remaining = str_value[1:]
+                # Get the first character of str_value
                 shifted = str_value[0]
+                # Append first character to sustring
                 return int(remaining + shifted)
             
             return shift_left
