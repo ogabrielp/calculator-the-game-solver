@@ -131,4 +131,14 @@ class Operation:
                 return int(sign + str(sum))
 
             return sum
+        
+        # Shift left
+        elif operation == '<Shift':
+            def shift_left(value):
+                str_value = str(value)
+                remaining = str_value[1:]
+                shifted = str_value[0]
+                return remaining + shifted
+            
+            return shift_left
         return None
