@@ -26,7 +26,7 @@ class Operation:
                 return True
             except:
                 return False
-
+        
         def get_sign(value):
             """
             Gets the sign of a number.
@@ -105,16 +105,14 @@ class Operation:
             def reverse(value):
                 # If the value is negative, there's a minus sign that would
                 # be at the end of the string after it was reversed.
-                if value < 0:
-                    # Remove the minus sign
-                    value *= -1
-                    # Convert the value to string and revert it
-                    reversed_value = str(value)[::-1]
-                    # Return as int preppending the minus sign
-                    return int('-' + reversed_value)
-
-                # Otherwise just flip the string and convert it to int
-                return int(str(value)[::-1])
+                sign = get_sign(value)
+                # Remove the sign so that when the string is reversed, the
+                # result can be parsed to int.
+                value = abs(value)
+                # Convert the value to string and revert it
+                reversed_value = str(value)[::-1]
+                # Return as int preppending the minus sign
+                return int(sign + reversed_value)
 
             return reverse
 
@@ -123,14 +121,13 @@ class Operation:
             def sum(value):
                 # Start the sum at 0
                 sum = 0
-                if value < 0:
-                    # If the value is negative, there's a minus sign that would
-                    # throw an exception when parsed below, so it's necessary to
-                    # extract the sign.
-                    sign = '-'
-                    value *= -1
-                else:
-                    sign = ''
+                # If the value is negative, there's a minus sign that would
+                # throw an exception when parsed below, so it's necessary to
+                # extract the sign.
+                sign = get_sign(value)
+                # Remove the sign so we are sure that the function will not try
+                # to sum a minus sign.
+                value = abs(value)
                 # For every digit of the number
                 for char in str(value):
                     # Increment the sum with its value
@@ -142,6 +139,11 @@ class Operation:
         # Shift left
         elif operation == '<Shift':
             def shift_left(value):
+                # Get the sign of the number if it's negative
+                sign = get_sign(value)
+                # Remove the sign so we are sure that regardless of the shifts,
+                # the final result certainly will be a parseable string.
+                value = abs(value)
                 # Store string conversion to prevent function calls further down
                 str_value = str(value)
                 # Create a substring of str_value without the first character
@@ -149,7 +151,9 @@ class Operation:
                 # Get the first character of str_value
                 shifted = str_value[0]
                 # Append first character to sustring
-                return int(remaining + shifted)
+                final_value = remaining + shifted
+                # Prepend the sign to the value
+                return int(sign + final_value)
             
             return shift_left
 
