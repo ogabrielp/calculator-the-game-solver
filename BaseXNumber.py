@@ -130,7 +130,10 @@ class BaseXNumber:
 
         # Creates a new instance with the final value and returns it
         result = BaseXNumber(value=result_str, base=self.base, overflow=self.overflow)
-        return result
+        return result    
+
+    def __eq__(self, other):
+        return self.value == other.value and self.base == other.base
 
     def get_value(self):
         return self.value
