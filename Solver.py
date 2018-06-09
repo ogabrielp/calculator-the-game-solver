@@ -56,7 +56,13 @@ class Solver:
             # Since overflow for the counter is False, when it reaches
             # the maximum value and adds 1 again, it will remain the same.
             # That's the stopping condition.
-            while counter + 1 != counter:
+            break_next = False
+            while not break_next:
+                # If it's currently at the last position of the counter,
+                # set break_next to true so the while ends.
+                if counter + 1 == counter:
+                    break_next = True
+                
                 # Try the current sequence
                 if self.sequence_works(counter.value):
                     return self.counter_to_buttons(counter.value)
@@ -90,7 +96,7 @@ class Solver:
 
         # If the sequence successfully arrived at the desired result
         if self.calculator.get_current_value() == level.get_goal():
-            return True
+            return True            
         else:
             return False
 
