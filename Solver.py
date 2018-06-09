@@ -61,7 +61,7 @@ class Solver:
                 if self.sequence_works(counter.value):
                     return self.counter_to_buttons(counter.value)
                 # If it didn't work, increase the counter by 1
-                counter += '1'
+                counter += 1                
 
     def sequence_works(self, sequence):
         """
