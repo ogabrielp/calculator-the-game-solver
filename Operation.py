@@ -136,7 +136,7 @@ class Operation:
                 str_value = str(value)
                 remaining = str_value[1:]
                 shifted = str_value[0]
-                return remaining + shifted
+                return int(remaining + shifted)
             
             return shift_left
         return None
