@@ -60,8 +60,6 @@ class Operation:
             # Define the function separately as it would be too illegible if
             # declared directly within the lambda call.
             def substr(value):
-                # Convert the value to string to be able to use len()
-                str_value = str(value)
                 # If there's more than one character
                 if math.fabs(value) >= 10:
                     # Remove the last one
