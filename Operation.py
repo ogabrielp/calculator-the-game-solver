@@ -27,6 +27,15 @@ class Operation:
             except:
                 return False
 
+        def get_sign(value):
+            """
+            Gets the sign of a number.
+
+            :param value: (int) the value to extract the sign of.
+            :return: a string, either '-' if value < 0, '' otherwise.
+            """
+            return '-' if value < 0 else ''
+
         # Square
         if operation.startswith('x^'):
             # Remove the 'x^' from the string
