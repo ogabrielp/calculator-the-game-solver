@@ -65,9 +65,9 @@ class Solver:
                 
                 # Try the current sequence
                 if self.sequence_works(counter.value):
-                    return self.counter_to_buttons(counter.value)
+                    return self.counter_to_buttons(counter.value)                
                 # If it didn't work, increase the counter by 1
-                counter += 1                
+                counter += 1            
 
     def sequence_works(self, sequence):
         """
@@ -92,6 +92,8 @@ class Solver:
             # If the number has a non-zero decimal part, it doesn't work,
             # as there are no levels where the goal is a decimal number.
             if math.fabs(int(current_value)) < math.fabs(current_value):
+                return False
+            elif len(str(current_value)) > 6:
                 return False
 
         # If the sequence successfully arrived at the desired result
