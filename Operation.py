@@ -177,5 +177,20 @@ class Operation:
                 return int(sign + final_value)
 
             return shift_right
+
+        # Mirror
+        elif operation == 'Mirror':
+            def mirror(value):
+                # Get the sign of the number if it's negative
+                sign = get_sign(value)
+                # Remove the sign so we are sure that regardless of the mirroring,
+                # the final result certainly will be a parseable string.
+                value = abs(value)                
+                # Store string conversion to prevent function calls further down
+                str_value = str(value)
+                # Appends the reversed string to the string itself and add the sign
+                return int(sign + str_value + str_value[::-1])
+
+            return mirror
             
         return None
