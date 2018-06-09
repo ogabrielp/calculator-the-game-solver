@@ -152,4 +152,26 @@ class Operation:
                 return int(remaining + shifted)
             
             return shift_left
+
+        # Shift right
+        elif operation == 'Shift>':
+            def shift_right(value):
+                # Get the sign of the number if it's negative
+                sign = get_sign(value)
+                # Remove the sign so we are sure that regardless of the shifts,
+                # the final result certainly will be a parseable string.
+                value = abs(value)                
+                # Store string conversion to prevent function calls further down
+                str_value = str(value)
+                # Create a substring of str_value without the last character
+                remaining = str_value[:-1]
+                # Get the last character of str_value
+                shifted = str_value[-1]
+                # Prepend substring with last character of str_value
+                final_value = shifted + remaining
+                 # Prepend the sign to the value
+                return int(sign + final_value)
+
+            return shift_right
+            
         return None
